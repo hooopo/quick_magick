@@ -67,6 +67,14 @@ module QuickMagick
       @@CHARS ||= ("a".."z").to_a + ("1".."9").to_a 
       Array.new(length, '').collect{@@CHARS[rand(@@CHARS.size)]}.join
     end
+
+    def verbose
+      defined?(@verbose) && @verbose
+    end
+
+    def verbose=(flag)
+      @verbose = flag
+    end
     
     # Encodes a geometry string with the given options
     def geometry(width, height=nil, x=nil, y=nil, flag=nil)
@@ -164,6 +172,7 @@ module QuickMagick
       error_file = Tempfile.new('error')
       error_filepath = error_file.path
       error_file.close
+      puts "Run Command -> #{command}" if verbose
       result = `#{command} 2>"#{error_filepath}"`
       unless $?.success?
         error_message = <<-ERROR
