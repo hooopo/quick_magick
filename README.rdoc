@@ -116,77 +116,77 @@ For normal operations like resize, rotate, generating captchas ... etc, QuickMag
 
 == Examples
 Determine image information
-	i = QuickMagick::Image.read('test.jpg').first
-	i.width # Retrieves width in pixels
-	i.height # Retrieves height in pixels
+  i = QuickMagick::Image.read('test.jpg').first
+  i.width # Retrieves width in pixels
+  i.height # Retrieves height in pixels
 
 Resize an image
-	i = QuickMagick::Image.read('test.jpg').first
-	i.resize "300x300!"
-	i.save "resized_image.jpg"
+  i = QuickMagick::Image.read('test.jpg').first
+  i.resize "300x300!"
+  i.save "resized_image.jpg"
 	
 	or
-	i.append_to_operators 'resize', "300x300!"
+  i.append_to_operators 'resize', "300x300!"
 	
 	or 
-	i.resize 300, 300, nil, nil, QuickMagick::AspectGeometry
+  i.resize 300, 300, nil, nil, QuickMagick::AspectGeometry
 	
 
 Access multipage image
-	i = QuickMagick::Image.read("multipage.pdf") {|image| image.density = 300}
-	i.size # number of pages
-	i.each_with_index do |page, i|
-		i.save "page_#{i}.jpg"
-	end
+  i = QuickMagick::Image.read("multipage.pdf") {|image| image.density = 300}
+  i.size # number of pages
+  i.each_with_index do |page, i|
+    i.save "page_#{i}.jpg"
+  end
 
 From blob
-	i = QuickMagick::Image.from_blob(blob_data).first
-	i.sample "100x100!"
-	i.save
+  i = QuickMagick::Image.from_blob(blob_data).first
+  i.sample "100x100!"
+  i.save
 
 Modify a file (mogrify)
-	i = QuickMagick::Image.read('test.jpg')
-	i.resize "100x100!"
-	i.save!
+  i = QuickMagick::Image.read('test.jpg')
+  i.resize "100x100!"
+  i.save!
 
 You can also display an image to Xserver
-	i = QuickMagick::Image.read('test.jpg')
-	i.display
+  i = QuickMagick::Image.read('test.jpg')
+  i.display
 
 QuickMagick supports also ImageList s
-	# Batch convert a list of jpg files to gif while resizing them
-	il = QuickMagick::ImageList.new('test.jpg', 'test2.jpg')
-	il << QuickMagick::Image.read('test3.jpg')
-	il.format = 'gif'
-	il.resize "300x300>"
-	il.save!
+  # Batch convert a list of jpg files to gif while resizing them
+  il = QuickMagick::ImageList.new('test.jpg', 'test2.jpg')
+  il << QuickMagick::Image.read('test3.jpg')
+  il.format = 'gif'
+  il.resize "300x300>"
+  il.save!
 
 You can also create images from scratch
-	# Create a 300x300 gradient image from yellow to red
-	i1 = QuickMagick::Image::gradient(300, 300, QuickMagick::RadialGradient, :yellow, :red)
-	i1.save 'gradient.png'
+  # Create a 300x300 gradient image from yellow to red
+  i1 = QuickMagick::Image::gradient(300, 300, QuickMagick::RadialGradient, :yellow, :red)
+  i1.save 'gradient.png'
 	
-	# Create a 100x200 CheckerBoard image
-	i1 = QuickMagick::Image::pattern(100, 200, :checkerboard)
-	i1.display
+  # Create a 100x200 CheckerBoard image
+  i1 = QuickMagick::Image::pattern(100, 200, :checkerboard)
+  i1.display
 
 ... and draw primitives on them
-	i = QuickMagick::Image::solid(100, 100, :white)
-	i.draw_line(0,0,50,50)
-	i.draw_text(30, 30, "Hello world!", :rotate=>45)
-	i.save 'hello.jpg'
+  i = QuickMagick::Image::solid(100, 100, :white)
+  i.draw_line(0,0,50,50)
+  i.draw_text(30, 30, "Hello world!", :rotate=>45)
+  i.save 'hello.jpg'
 
 ... you can then convert it to blob using
   i.to_blob
   
 (new) You can now access single pixels using QuickMagick
-	# Create a 300x300 gradient image from yellow to red
-	i1 = QuickMagick::Image::gradient(300, 300, QuickMagick::RadialGradient, :yellow, :red)
-	i1.save 'gradient.png'
+  # Create a 300x300 gradient image from yellow to red
+  i1 = QuickMagick::Image::gradient(300, 300, QuickMagick::RadialGradient, :yellow, :red)
+  i1.save 'gradient.png'
 	
-	# Now you can access single pixel values
-	i1.get_pixel(10,10) # [255, 0, 0]
-	i1.get_pixel(50,50) # [255, 15, 0]
+  # Now you can access single pixel values
+  i1.get_pixel(10,10) # [255, 0, 0]
+  i1.get_pixel(50,50) # [255, 15, 0]
 
 For more information on drawing API visit:
 http://www.imagemagick.org/Usage/draw/
