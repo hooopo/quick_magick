@@ -11,4 +11,5 @@ test/image_list_test.rb
 test/image_test.rb
 test/multipage.tif
 test/test_magick.rb
+test/test_quick_magick.rb
 test/warnings.tiff
