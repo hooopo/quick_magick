@@ -360,7 +360,7 @@ module QuickMagick
     
     # Use text to annotate an image with text. Follow the text coordinates with a string.
     def draw_text(x0, y0, text, options={})
-      append_to_operators("draw", "#{options_to_str(options)} text #{x0},#{y0} '#{text}'")
+      append_to_operators("draw", "#{options_to_str(options)} text #{x0},#{y0} '#{text.gsub('"', '\"').gsub("'", "\\\\'")}'")
     end
     
     # saves the current image to the given filename
